@@ -12,7 +12,7 @@ The Item Catalog project consists of developing an application that provides a l
 
 ## How to Run
 1. Install Vagrant and VirtualBox
-2. Clone or downlaod the ItemCatalog project
+2. Clone or downlaod the ItemCatalog project (https://github.com/MounikaArkala/ItemCatalog.git)
 3. Launch the Vagrant VM (vagrant up)
 4. Run the application within the VM with the command(project project.py)
 5. Access and test the application by visiting http://localhost:5656/ locally
