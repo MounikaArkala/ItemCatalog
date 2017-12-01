@@ -1,0 +1,48 @@
+10 sloc)  360 Bytes
+<html>
+   <body>
+      {% include "header.html" %}
+      <form action= "{{url_for('editItem',item_name=item.item_name)}}" method = 'POST'>
+         <table align="center" cellspacing="1000" cellpadding="100">
+            <tr>
+               <th>Select Category:</th>
+               <th>
+                  <select  class ="select " name ="comp_select">
+                     {% for i in category_list %}
+                     {% if i.id == item.category_id %}
+                     <option value="{{i.id}}" selected > {{i.category_name}}</option>
+                     {% else %}
+                     <option value="{{i.id}}" >{{i.category_name}}</option>
+                     {% endif %}
+                     {% endfor %}
+                  </select>
+               </th>
+            </tr>
+            <tr>
+               <th>
+                  Title:
+               </th>
+               <th>
+                  <input type = 'text' size='30' class ="textbox" name = 'title'  placeholder = '{{item.item_name}}'>
+               </th>
+            </tr>
+            <tr>
+               <th>   
+                  Description:
+               </th>
+               <th>  
+                  <textarea rows="4" cols="50" class="textarea" name = 'description' placeholder = '{{item.description}}'></textarea>
+               </th>
+            </tr>
+            <tr>
+               <th>
+                  &nbsp;
+               </th>
+               <th>
+                  <input type='submit' class="edit-button" value='EDIT'>
+               </th>
+            </tr>
+         </table>
+      </form>
+   </body>
+</html>

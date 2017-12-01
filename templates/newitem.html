@@ -1,0 +1,50 @@
+(10 sloc)  360 Bytes
+<html>
+   <head>
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
+   </head>
+   <body>
+      {% include "header.html" %}
+      <form action= "{{url_for('addItem')}}" method = 'POST'>
+         <table align="center" cellspacing="1000" cellpadding="100">
+            <tr>
+               <th>Select Category:</th>
+               <th>
+                  <select  class ="select" name ="comp_select">
+                     {% for i in category_list %}
+                     <option value="{{i.id}}">{{i.category_name}}</option>
+                     {% endfor %}
+                  </select>
+               </th>
+            </tr>
+            <tr>
+               <th>
+                  Title:
+               </th>
+               <th>
+                  <input type = 'text' size='30' class ="textbox" name = 'title'>
+               </th>
+            </tr>
+            <tr>
+               <th>   
+                  Description:
+               </th>
+               <th>  <textarea rows="4" cols="50" class="textarea" name = 'description'>
+                  </textarea>
+               </th>
+            </tr>
+            <tr>
+               <th>
+                  &nbsp;
+               </th>
+               <th>
+                  <input type='submit' class="add-button" value='ADD'>
+               </th>
+            </tr>
+         </table>
+      </form>
+   </body>
+</html>

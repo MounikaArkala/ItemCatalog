@@ -1,0 +1,11 @@
+<html>
+   <body>
+      {% include "header.html" %}
+      <form action= "{{url_for('deleteItem',item_name=item.item_name)}}" method = 'POST'>
+         <div class="delete-info">
+            <p class ="confirmation-text">Are you sure you want to delete?</p>
+            <input class ="delete-button" type='submit' value='Delete'>
+         </div>
+      </form>
+   </body>
+</html>

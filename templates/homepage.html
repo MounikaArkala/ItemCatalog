@@ -1,0 +1,31 @@
+<html>
+   <head>
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
+   </head>
+   <body>
+      {% include "header.html" %}
+      <div class="content-wrapper">
+         <h3 class="h3-align">Latest Items</h3>
+         <marquee behavior="scroll" direction="left">
+            <div class="latest-items">
+               {% for i in range(0,5) %}
+               <span class="span-background" >{{a[i]}} <i>({{b[i]}})</i></span> &nbsp &nbsp
+               {% endfor %}
+            </div>
+         </marquee>
+      </div>
+      {%if 'username' in session %}
+      <a class="glyphicon glyphicon-plus add-link" href= '{{url_for('addItem')}}'>Add New Item</a>
+      {% endif %} 
+      <div class="categories">
+         <h3>Categories</h3>
+         {% for i in category_list %}
+         <a class="list-group-item" href= '{{url_for('viewItems',category_name = i.category_name)}}'>{{i.category_name}}</a>
+         <br>
+         {% endfor %}
+      </div>
+   </body>
+</html>

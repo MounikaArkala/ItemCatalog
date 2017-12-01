@@ -1,0 +1,11 @@
+<html>
+    <head><link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+<body>
+    {% include "header.html" %}
+    <div class="delete-alert">
+    <p>You are not authorized to edit this restaurant. Please create your own restaurant in order to edit.</p>
+    </div>
+</body>
+</html>
