@@ -2,9 +2,10 @@ import httplib2
 import json
 from flask import make_response
 import requests
-from flask import Flask, render_template, request, redirect, url_for, \
+from flask import Flask, g, render_template, request, redirect, url_for, \
     jsonify, flash
 from sqlalchemy import create_engine, asc
+from functools import wraps
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Category, Item, User
 from flask import session as login_session
@@ -161,6 +162,13 @@ def itemCatalogJSON(category_id):
     return jsonify(MenuItems=[i.serialize for i in items])
 
 
+# JSON end point showing information of an item
+@app.route('/categories/<int:id>/menu/JSON')
+def itemJSON(id):
+    item = session.query(Item).filter_by(item_name=item_name).one()
+    return jsonify(MenuItems=item.serialize)
+
+
 # logout using google account.
 @app.route('/gdisconnect')
 def gdisconnect():
@@ -236,11 +244,21 @@ def viewItemInfo(category_name, item_name):
     return render_template('viewItemInfo.html', item_name=item_name, item=item)
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' in login_session:
+            return f(*args, **kwargs)
+        else:
+            flash("You are not allowed to access there")
+            return redirect('/login')
+    return decorated_function
+
+
 # Add Item.
 @app.route('/catalog/addItem/', methods=['GET', 'POST'])
+@login_required
 def addItem():
-    if 'username' not in login_session:
-        return redirect('/login')
     if request.method == 'POST':
         newItem = Item(
             item_name=request.form['title'],
@@ -258,9 +276,8 @@ def addItem():
 
 # Edit Item.
 @app.route('/catalog/<string:item_name>/edit/', methods=['GET', 'POST'])
+@login_required
 def editItem(item_name):
-    if 'username' not in login_session:
-        return redirect('/login')
     item = session.query(Item).filter_by(item_name=item_name).one()
     if item.user_id != login_session['user_id']:
         return render_template('editAlert.html')
@@ -285,9 +302,8 @@ def editItem(item_name):
 
 # Delete Item.
 @app.route('/catalog/<string:item_name>/delete/', methods=['GET', 'POST'])
+@login_required
 def deleteItem(item_name):
-    if 'username' not in login_session:
-        return redirect('/login')
     item = session.query(Item).filter_by(item_name=item_name).one()
     if item.user_id != login_session['user_id']:
         return render_template('deleteAlert.html')
