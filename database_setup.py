@@ -23,7 +23,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     category_name = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    user = relationship(User, cascade="save-update, merge, delete")
 
 
 class Item(Base):
@@ -33,9 +33,9 @@ class Item(Base):
     id = Column(Integer, primary_key=True)
     description = Column(String(2500))
     category_id = Column(Integer, ForeignKey('category.id'))
-    category = relationship(Category)
+    category = relationship(Category, cascade="save-update, merge, delete")
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    user = relationship(User, cascade="save-update, merge, delete")
 
 
 # serialize function to be able to send JSON objects in a
