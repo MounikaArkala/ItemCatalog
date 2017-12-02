@@ -14,10 +14,13 @@ The Item Catalog project consists of developing an application that provides a l
 1. Install Vagrant and VirtualBox
 2. Clone or downlaod the ItemCatalog project (https://github.com/MounikaArkala/ItemCatalog.git)
 3. Launch the Vagrant VM (vagrant up)
-4. Run the application within the VM with the command(project project.py)
-5. Access and test the application by visiting http://localhost:5656/ locally
+4. set up the database by using the commnad (python database_setup.py)
+5. Run the application within the VM with the command(python project.py)
+6. Access and test the application by visiting http://localhost:5656/ locally
 
 ## JSON Endpoints:
-items under a category :  '/categories/<int:category_id>/menu/JSON'
+items under a category :  '/categories/<int:category_id>/menu/JSON'  
+
+item information:         '/categories/<int:id>/menu/JSON'
 
 
